@@ -7,7 +7,6 @@ export const Header = () => {
     <header className="bg-[#f3f3eb] shadow-md m-3 rounded-2xl sticky">
       <div className="flex justify-between items-center max-w-6xl mx-auto">
         <Link to="/" className="flex items-center">
-          {" "}
           <img src={brandlogowetp} className="w-20 h-20" />
           <h1 className="font-bold text-sm sm:text-xl flex-wrap">
             <span className="text-slate-900">Harish </span>
@@ -24,17 +23,17 @@ export const Header = () => {
         </form>
         <ul className="flex gap-4 md:gap-1">
           <Link to="/">
-            <li className="hidden sm:inline text-slate-700 hover:bg-amber-600 hover:text-slate-50 p-2 rounded-xl hover:shadow-md">
+            <li className="hidden sm:inline text-slate-900 hover:bg-amber-600 hover:text-slate-50 p-2 rounded-xl hover:shadow-md">
               Home
             </li>
           </Link>
           <Link to="/about">
-            <li className="hidden sm:inline text-slate-700  hover:bg-amber-600 hover:text-slate-50 p-2 rounded-xl hover:shadow-md">
+            <li className="hidden sm:inline text-slate-900  hover:bg-amber-600 hover:text-slate-50 p-2 rounded-xl hover:shadow-md">
               About
             </li>
           </Link>
           <Link to="/signin">
-            <li className="sm:inline text-slate-700  hover:bg-amber-600 hover:text-slate-50 p-2 rounded-xl hover:shadow-md">
+            <li className="sm:inline text-slate-900  hover:bg-amber-600 hover:text-slate-50 p-2 rounded-xl hover:shadow-md">
               Sign In
             </li>
           </Link>
