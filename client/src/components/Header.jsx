@@ -1,8 +1,11 @@
 import { brandlogowetp } from "../assets";
 import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export const Header = () => {
+  const { currentUser } = useSelector((state) => state.user);
+
   return (
     <header className="bg-[#f3f3eb] shadow-md m-3 rounded-2xl sticky">
       <div className="flex justify-between items-center max-w-6xl mx-auto">
@@ -32,10 +35,16 @@ export const Header = () => {
               About
             </li>
           </Link>
-          <Link to="/signin">
-            <li className="sm:inline text-slate-900  hover:bg-amber-600 hover:text-slate-50 p-2 rounded-xl hover:shadow-md">
-              Sign In
-            </li>
+          <Link to="/profile">
+            {currentUser ? (
+              <img
+                className="rounded-full h-7 w-7 object-cover"
+                src={currentUser.avatar}
+                alt="profile"
+              />
+            ) : (
+              <li className=" text-slate-700 hover:underline"> Sign in</li>
+            )}
           </Link>
         </ul>
       </div>
