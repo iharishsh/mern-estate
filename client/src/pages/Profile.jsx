@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getDownloadURL,
   getStorage,
@@ -7,6 +7,7 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../firebase";
+import { updateUserFailure, updateUserStart, updateUserSuccess } from "../redux/User/UserSlice";
 
 export const Profile = () => {
   const fileRef = useRef(null);
@@ -16,6 +17,8 @@ export const Profile = () => {
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
+  const [updateSuccess, setUpdateSuccess] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (file) {
@@ -47,6 +50,33 @@ export const Profile = () => {
     );
   };
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try{
+      dispatch(updateUserStart());
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(updateUserFailure(data.message));
+        return;
+      }
+      dispatch(updateUserSuccess(data));
+      setUpdateSuccess(true);
+    } catch (error) {
+      dispatch(updateUserFailure(error.message));
+    }
+  }
+
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1
@@ -56,7 +86,7 @@ export const Profile = () => {
         Profile
       </h1>
 
-      <form className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
           onChange={(e) => setFile(e.target.files[0])}
           type="file"
@@ -90,6 +120,7 @@ export const Profile = () => {
           placeholder="username"
           defaultValue={currentUser.username}
           className="border p-3 rounded-lg"
+          onChange={handleChange}
         />
         <input
           type="text"
@@ -97,12 +128,14 @@ export const Profile = () => {
           placeholder="email"
           defaultValue={currentUser.email}
           className="border p-3 rounded-lg"
+          onChange={handleChange}
         />
         <input
           type="text"
           id="password"
           placeholder="password"
           className="border p-3 rounded-lg"
+          onChange={handleChange}
         />
         <button
           disabled={loading}
@@ -116,6 +149,10 @@ export const Profile = () => {
         <span className="text-red-700 cursor-pointer">Delete account</span>
         <span className="text-red-700 cursor-pointer">Sign out</span>
       </div>
+      <p className='text-red-700 mt-5 text-center'>{error ? error : ''}</p>
+      <p className='text-green-700 mt-5 text-center'>
+        {updateSuccess ? 'User is updated successfully!' : ''}
+      </p>
     </div>
   );
 };
