@@ -8,7 +8,7 @@ import {
 } from "../redux/User/UserSlice";
 import OAuth from "../components/OAuth";
 
-export const SignIn = () => {
+export default function SignIn() {
   const [formData, setFormData] = useState({});
   const { loading, error } = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -81,4 +81,4 @@ export const SignIn = () => {
       {error && <p className="text-red-500">{error}</p>}
     </div>
   );
-};
+}

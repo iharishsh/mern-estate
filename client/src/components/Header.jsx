@@ -7,7 +7,7 @@ export const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
 
   return (
-    <header className="bg-[#f3f3eb] shadow-md m-3 rounded-2xl sticky">
+    <header className="bg-[#f3f3eb] shadow-md m-3 rounded-2xl">
       <div className="flex justify-between items-center max-w-6xl mx-auto">
         <Link to="/" className="flex items-center">
           <img src={brandlogowetp} className="w-20 h-20" />
