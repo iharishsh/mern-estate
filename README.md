@@ -2,6 +2,8 @@
 
 This project is a full-stack real estate marketplace built using the MERN (MongoDB, Express.js, React, Node.js) stack. It encompasses a range of functionalities, from user authentication to property listings and search features. The application was developed as part of a comprehensive learning journey to master modern web development tools and techniques.
 
+UPDATE: MongoDB cluster is terminated so operations won't work in LIVE link. To test it out, try it locally with your MongoDB credentials in backend.
+
 **Features:**  
 **User Authentication**: Implemented advanced authentication techniques using JWT, Firebase, and Google OAuth for secure and seamless user access.  
 **Property Listings (CRUD)**: Perform real-world Create, Read, Update, and Delete operations for property listings using MongoDB.  
